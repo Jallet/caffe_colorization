@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+import sys
+caffe_root = '/home/jiangliang/code/future/caffe/'
+sys.path.insert(0, caffe_root + 'python')
 import caffe
 from PIL import Image
 import numpy as np
