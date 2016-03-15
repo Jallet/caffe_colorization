@@ -1,0 +1,14 @@
+net: "/home/jiangliang/code/future/caffe/models/fcn/train_val.prototxt"
+test_iter: 10
+test_interval: 100
+display: 20
+average_loss: 20
+lr_policy: "fixed"
+base_lr: 1e-10
+momentum: 0.99
+iter_size: 1
+max_iter:80000
+weight_decay: 0.0005
+snapshot: 10000
+snapshot_prefix: "train"
+test_initialization: false
