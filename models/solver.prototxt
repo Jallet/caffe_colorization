@@ -1,4 +1,4 @@
-net: "/home/jiangliang/code/caffe_colorization/models/train_val.prototxt"
+net: "/home/jiangliang/code/caffe_colorization/models/train_val_fuse.prototxt"
 test_iter: 10
 test_interval: 100
 display: 20
@@ -10,5 +10,6 @@ iter_size: 1
 max_iter:80000
 weight_decay: 0.0005
 snapshot: 10000
-snapshot_prefix: "train"
+snapshot_prefix: "models/train"
 test_initialization: false
+solver_mode: GPU
