@@ -1,4 +1,4 @@
-net: "/home/jiangliang/code/future/caffe/models/fcn/train_val.prototxt"
+net: "/home/jiangliang/code/caffe_colorization/models/train_val.prototxt"
 test_iter: 10
 test_interval: 100
 display: 20

@@ -6,14 +6,9 @@ layer {
   include {
     phase: TRAIN
   }
-  transform_param {
-    mean_value: 104.00699
-    mean_value: 116.66877
-    mean_value: 122.67892
-  }
   data_param {
-    source: "/home/jiangliang/code/future/caffe/data/fcn/train_image.lmdb"
-    batch_size: 1
+    source: "/home/jiangliang/code/caffe_colorization/data/Flickr8k/train_y.lmdb"
+    batch_size: 2
     backend: LMDB
   }
 }
@@ -25,8 +20,8 @@ layer {
     phase: TRAIN
   }
   data_param {
-    source: "/home/jiangliang/code/future/caffe/data/fcn/train_label.lmdb"
-    batch_size: 1
+    source: "/home/jiangliang/code/caffe_colorization/data/Flickr8k/train_uv.lmdb"
+    batch_size: 2
     backend: LMDB
   }
 }
@@ -37,14 +32,9 @@ layer {
   include {
     phase: TEST
   }
-  transform_param {
-    mean_value: 104.00699
-    mean_value: 116.66877
-    mean_value: 122.67892
-  }
   data_param {
-    source: "/home/jiangliang/code/future/caffe/data/fcn/val_image.lmdb"
-    batch_size: 1
+    source: "/home/jiangliang/code/caffe_colorization/data/Flickr8k/val_y.lmdb"
+    batch_size: 2
     backend: LMDB
   }
 }
@@ -56,8 +46,8 @@ layer {
     phase: TEST
   }
   data_param {
-    source: "/home/jiangliang/code/future/caffe/data/fcn/val_label.lmdb"
-    batch_size: 1 
+    source: "/home/jiangliang/code/caffe_colorization/data/Flickr8k/val_uv.lmdb"
+    batch_size: 2
     backend: LMDB
   }
 }
@@ -692,10 +682,38 @@ layer {
     }
   }
 }
-layer { type: 'Crop' name: 'score' top: 'score'
-  bottom: 'upscore' bottom: 'data' }
-
-layer { type: 'SoftmaxWithLoss' name: 'loss' top: 'loss'
-  bottom: 'score' bottom: 'label'
-  loss_param { normalize: false }
+layer {
+  name: "color"
+  type: "Convolution"
+  bottom: "upscore"
+  top: "color"
+  param {
+    lr_mult: 10
   }
+  convolution_param {
+    num_output: 2
+    bias_term: false
+    kernel_size: 3
+    stride: 1
+    pad: 1
+    weight_filler {
+        type: "gaussian"
+        std: 0.01
+    }
+    bias_filler {
+        type: "constant"
+        value: 0
+    }
+  }
+}
+
+layer { type: 'Crop' name: 'score' top: 'score'
+  bottom: 'color' bottom: 'data' }
+
+layer {
+  type: "EuclideanLoss"
+  name: "loss" 
+  bottom: "score"
+  bottom: "label"
+  top: "loss"
+}
