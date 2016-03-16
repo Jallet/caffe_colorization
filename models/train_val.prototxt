@@ -707,8 +707,13 @@ layer {
   }
 }
 
-layer { type: 'Crop' name: 'score' top: 'score'
-  bottom: 'color' bottom: 'data' }
+layer { 
+  type: 'crop' 
+  name: 'score' 
+  top: 'score'
+  bottom: 'color' 
+  bottom: 'data' 
+}
 
 layer {
   type: "EuclideanLoss"
