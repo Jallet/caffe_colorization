@@ -85,28 +85,55 @@ def rgb2yuv(rgb):
     yuv[:, :, 2] = 0.615*r - 0.515*g - 0.100*b;
     return yuv
 
-def yuv2rgb(y, u, v):
-   r = y + 1.14 * v
-   g = y - 0.39*u - 0.58*v
-   b= y + 2.03*u
-   
-   r_label = r > 0
-   r = r * r_label
-   r_label = r < 1
-   r = r ** r_label
-   g_label = g > 0
-   g = g * g_label
-   g_label = g < 1
-   g = g ** g_label
-   b_label = b > 0
-   b = b * b_label
-   b_label = b < 1
-   b = b ** b_label
-   r = r * 255
-   g = g * 255
-   b = b * 255
-
-   r = np.uint8(r)
-   g = np.uint8(g)
-   b = np.uint8(b)
-   return [r, g, b]
+#def yuv2rgb(y, u, v):
+#   r = y + 1.14 * v
+#   g = y - 0.39*u - 0.58*v
+#   b= y + 2.03*u
+#   
+#   r_label = r > 0
+#   r = r * r_label
+#   r_label = r < 1
+#   r = r ** r_label
+#   g_label = g > 0
+#   g = g * g_label
+#   g_label = g < 1
+#   g = g ** g_label
+#   b_label = b > 0
+#   b = b * b_label
+#   b_label = b < 1
+#   b = b ** b_label
+#   r = r * 255
+#   g = g * 255
+#   b = b * 255
+#
+#   r = np.uint8(r)
+#   g = np.uint8(g)
+#   b = np.uint8(b)
+#   return [r, g, b]
+def yuv2rgb(yuv):
+    y = yuv[:, :, 0]
+    u = yuv[:, :, 1]
+    v = yuv[:, :, 2]
+    rgb = np.zeros((yuv.shape))
+    rgb[:, :, 0] = y + 1.14 * v
+    rgb[:, :, 1] = y - 0.39 * u - 0.58 * v
+    rgb[:, :, 2] = y + 2.03 * u
+    
+    r_label = rgb[:, :, 0] > 0
+    rgb[:, :, 0] = rgb[:, :, 0] * r_label
+    r_label = rgb[:, :, 0] < 1
+    rgb[:, :, 0] = rgb[:, :, 0] ** r_label
+    
+    g_label = rgb[:, :, 1] > 0
+    rgb[:, :, 1] = rgb[:, :, 1] * g_label
+    g_label = rgb[:, :, 1] < 1
+    rgb[:, :, 1] = rgb[:, :, 1] ** g_label
+    
+    b_label = rgb[:, :, 2] > 0
+    rgb[:, :, 2] = rgb[:, :, 2] * b_label
+    b_label = rgb[:, :, 2] < 1
+    rgb[:, :, 2] = rgb[:, :, 2] ** b_label
+    
+    rgb = rgb * 255
+    rgb = np.uint8(rgb)
+    return rgb
