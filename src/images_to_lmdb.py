@@ -8,7 +8,7 @@ import numpy as np
 import lmdb
 from util import *
 
-data_path = './data/Flickr8k/'
+data_path = '/home/jiangliang/code/caffe_colorization/data/Flickr8k/'
 train_file = 'split/train_list'
 val_file = 'split/val_list'
 test_file = 'split/test_list'
@@ -41,17 +41,19 @@ def to_lmdb(y_lmdb, uv_lmdb, file_list):
                 num_images += 1
                 y = im_yuv[0, :, :]
                 uv = im_yuv[1 : 3, :, :]
-                
-                y_data = caffe.proto.caffe_pb2.Datum()
-                y_data.channels = 1
-                y_data.height, y_data.width = y.shape
-                y_data.data = y.tostring()
+                y = y[np.newaxis, :, :]
+                y_data = caffe.io.array_to_datum(y)
+                #y_data = caffe.proto.caffe_pb2.Datum()
+                #y_data.channels = 1
+                #y_data.height, y_data.width = y.shape
+                #y_data.float_data = y
                 y_image_txn.put('{:0>12d}'.format(i), y_data.SerializeToString())
                
-                uv_data = caffe.proto.caffe_pb2.Datum()
-                uv_data.channels, uv_data.height, uv_data.width = uv.shape
-                uv_data.data = uv.tostring()
-                uv_image_txn.put('{:>12d}'.format(i), uv_data.SerializeToString())
+                uv_data = caffe.io.array_to_datum(uv)
+                #uv_data = caffe.proto.caffe_pb2.Datum()
+                #uv_data.channels, uv_data.height, uv_data.width = uv.shape
+                #uv_data.float_data = uv
+                uv_image_txn.put('{:0>12d}'.format(i), uv_data.SerializeToString())
         uv_lmdb.close()
     y_lmdb.close()
     mean_color  = np.double(mean_color) / num_images
