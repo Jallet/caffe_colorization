@@ -6,9 +6,12 @@ layer {
   include {
     phase: TRAIN
   }
+transform_param {
+    mean_value: 0.5
+  }
   data_param {
     source: "/home/jiangliang/code/caffe_colorization/data/Flickr8k/train_y.lmdb"
-    batch_size: 16
+    batch_size: 32
     backend: LMDB
   }
 }
@@ -21,7 +24,7 @@ layer {
   }
   data_param {
     source: "/home/jiangliang/code/caffe_colorization/data/Flickr8k/train_uv.lmdb"
-    batch_size: 16
+    batch_size: 32
     backend: LMDB
   }
 }
@@ -31,6 +34,9 @@ layer {
   top: "data"
   include {
     phase: TEST
+  }
+  transform_param {
+    mean_value: 0.5
   }
   data_param {
     source: "/home/jiangliang/code/caffe_colorization/data/Flickr8k/val_y.lmdb"
