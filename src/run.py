@@ -8,8 +8,8 @@ train_loss_string = '\"Train net output\"'
 val_loss_string = '\"Test net output\"'
 train_iter_str = "\"Iteration.*loss.*\""
 val_iter_str = "\"Iteration.*Testing.*\""
-#child = subprocess.Popen('nohup ' + project_root + 'src/solve.py > ' + project_root + nohup_file + ' &', shell = True)
-#child.wait()
+child = subprocess.Popen('nohup ' + project_root + 'src/solve.py > ' + project_root + nohup_file + ' &', shell = True)
+child.wait()
 
 def get_loss(loss_string, iter_string):
     loss_output = subprocess.check_output('cat ' + project_root + nohup_file + ' | grep ' + loss_string, shell = True)
@@ -34,3 +34,5 @@ val_loss = get_loss(val_loss_string, val_iter_str)
 np.savetxt(project_root + 'result/train_loss', train_loss)
 np.savetxt(project_root + 'result/val_loss', val_loss)
 
+child = subprocess.Popen('rm -rf ' + project_root + nohup_file, shell = True)
+child.wait()
