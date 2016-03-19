@@ -10,8 +10,8 @@ transform_param {
     mean_value: 0.5
   }
   data_param {
-    source: "/home/jiangliang/code/caffe_colorization/data/Flickr8k/train_y.lmdb"
-    batch_size: 32
+    source: "/home/jiangliang/code/caffe_colorization/data/flowers/train_y.lmdb"
+    batch_size: 16
     backend: LMDB
   }
 }
@@ -23,8 +23,8 @@ layer {
     phase: TRAIN
   }
   data_param {
-    source: "/home/jiangliang/code/caffe_colorization/data/Flickr8k/train_uv.lmdb"
-    batch_size: 32
+    source: "/home/jiangliang/code/caffe_colorization/data/flowers/train_uv.lmdb"
+    batch_size: 16
     backend: LMDB
   }
 }
@@ -39,7 +39,7 @@ layer {
     mean_value: 0.5
   }
   data_param {
-    source: "/home/jiangliang/code/caffe_colorization/data/Flickr8k/val_y.lmdb"
+    source: "/home/jiangliang/code/caffe_colorization/data/flowers/val_y.lmdb"
     batch_size: 2
     backend: LMDB
   }
@@ -52,7 +52,7 @@ layer {
     phase: TEST
   }
   data_param {
-    source: "/home/jiangliang/code/caffe_colorization/data/Flickr8k/val_uv.lmdb"
+    source: "/home/jiangliang/code/caffe_colorization/data/flowers/val_uv.lmdb"
     batch_size: 2
     backend: LMDB
   }
@@ -133,9 +133,31 @@ layer {
         stride: 2 
     }
 }
+layer {
+    name: "bn1"
+    type: "BatchNorm"
+    bottom: "pool1"
+    top: "bn1"
+    param {
+        lr_mult: 0
+    }
+    param {
+        lr_mult: 0
+    }
+    param {
+        lr_mult: 0
+    }
+}
+layer {
+    name : "sigmoid1"
+    type: "Sigmoid"
+    bottom: "bn1"
+    top: "sigmoid1"
+}
 layer { 
     name: "conv2_1" 
-    bottom: "pool1" 
+#    bottom: "pool1" 
+    bottom: "sigmoid1"
     top: "conv2_1" 
     type: "Convolution"
     param {
@@ -295,8 +317,30 @@ layer {
 #    }
 #}
 layer {
-#    bottom: "pool3"
+    name: "bn2"
+    type: "BatchNorm"
     bottom: "pool2"
+    top: "bn2"
+    param {
+        lr_mult: 0
+    }
+    param {
+        lr_mult: 0
+    }
+    param {
+        lr_mult: 0
+    }
+}
+layer {
+    name : "sigmoid2"
+    type: "Sigmoid"
+    bottom: "bn2"
+    top: "sigmoid2"
+}
+layer {
+#    bottom: "pool3"
+#    bottom: "pool2"
+    bottom: "sigmoid2"
     top: "conv4_1"
     name: "conv4_1" 
     type: "Convolution"
@@ -403,7 +447,29 @@ layer {
     }
 }
 layer {
+    name: "bn4"
+    type: "BatchNorm"
     bottom: "pool4"
+    top: "bn4"
+    param {
+        lr_mult: 0
+    }
+    param {
+        lr_mult: 0
+    }
+    param {
+        lr_mult: 0
+    }
+}
+layer {
+    name : "sigmoid4"
+    type: "Sigmoid"
+    bottom: "bn4"
+    top: "sigmoid4"
+}
+layer {
+#    bottom: "pool4"
+    bottom: "sigmoid4"
     top: "conv5_1"
     name: "conv5_1"
     type: "Convolution"
