@@ -1,18 +1,20 @@
 #!/usr/bin/env python
 import sys
+import argparse
 caffe_root = '/usr/local/caffe/'
 sys.path.insert(0, caffe_root + 'python')
 import caffe
 import numpy as np
+def argparser():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--iters', action = 'store', dest = 'iters', default = 10000, type = int, help = "training iterations")
+    return parser
 
-steps = 10000
+parser = argparser()
+args = parser.parse_args()
+iters = args.iters
 caffe.set_mode_gpu()
 caffe.set_device(0)
-train_loss = np.zeros(steps)
-solver = caffe.SGDSolver('/home/jiangliang/code/caffe_colorization/models/solver.prototxt')
-display_size = 2
-for i in range(steps / display_size):
-    solver.step(display_size) 
-    train_loss[i] = solver.net.blobs['loss'].data
-np.savetxt('/home/jiangliang/code/caffe_colorization/result/loss', train_loss)
 
+solver = caffe.SGDSolver('/home/jiangliang/code/caffe_colorization/models/solver.prototxt')
+solver.step(iters)
