@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import sys
-caffe_root = '/home/jiangliang/code/future/caffe/'
+caffe_root = '/usr/local/caffe/'
 sys.path.insert(0, caffe_root + 'python')
 import caffe
 from PIL import Image
@@ -8,7 +8,7 @@ import numpy as np
 import lmdb
 from util import *
 
-data_path = '/home/jiangliang/code/caffe_colorization/data/Flickr8k/'
+data_path = '/home/jiangliang/code/caffe_colorization/data/flowers/'
 train_file = 'split/train_list'
 val_file = 'split/val_list'
 test_file = 'split/test_list'
