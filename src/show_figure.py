@@ -12,15 +12,12 @@ parser = argparser()
 args = parser.parse_args()
 train_loss_path = args.train_loss_path
 test_loss_path = args.test_loss_path
-print train_loss_path
 
 train_loss = np.loadtxt(train_loss_path)
 test_loss = np.loadtxt(test_loss_path)
-print train_loss
-print train_loss.shape
-print test_loss.shape
 plt.figure(1)
-plt.plot(train_loss, 'g-', label = "train_loss")
-plt.plot(test_loss, 'r-', label = "test_loss")
+plt.plot(train_loss[:, 0], train_loss[:, 1], 'g-', label = "train_loss")
+plt.plot(test_loss[:, 0], test_loss[:, 1], 'r-', label = "test_loss")
+plt.legend()
 plt.title("loss")
 plt.show()
