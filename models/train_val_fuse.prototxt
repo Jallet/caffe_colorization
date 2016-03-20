@@ -11,7 +11,7 @@ transform_param {
   }
   data_param {
     source: "/home/jiangliang/code/caffe_colorization/data/flowers/train_y.lmdb"
-    batch_size: 16
+    batch_size: 48
     backend: LMDB
   }
 }
@@ -24,7 +24,7 @@ layer {
   }
   data_param {
     source: "/home/jiangliang/code/caffe_colorization/data/flowers/train_uv.lmdb"
-    batch_size: 16
+    batch_size: 48
     backend: LMDB
   }
 }
@@ -133,31 +133,31 @@ layer {
         stride: 2 
     }
 }
-layer {
-    name: "bn1"
-    type: "BatchNorm"
-    bottom: "pool1"
-    top: "bn1"
-    param {
-        lr_mult: 0
-    }
-    param {
-        lr_mult: 0
-    }
-    param {
-        lr_mult: 0
-    }
-}
-layer {
-    name : "sigmoid1"
-    type: "Sigmoid"
-    bottom: "bn1"
-    top: "sigmoid1"
-}
+#layer {
+#    name: "bn1"
+#    type: "BatchNorm"
+#    bottom: "pool1"
+#    top: "bn1"
+#    param {
+#        lr_mult: 0
+#    }
+#    param {
+#        lr_mult: 0
+#    }
+#    param {
+#        lr_mult: 0
+#    }
+#}
+#layer {
+#    name : "sigmoid1"
+#    type: "Sigmoid"
+#    bottom: "bn1"
+#    top: "sigmoid1"
+#}
 layer { 
     name: "conv2_1" 
-#    bottom: "pool1" 
-    bottom: "sigmoid1"
+    bottom: "pool1" 
+#    bottom: "sigmoid1"
     top: "conv2_1" 
     type: "Convolution"
     param {
@@ -317,31 +317,31 @@ layer {
 #        stride: 2 
 #    }
 #}
-layer {
-    name: "bn2"
-    type: "BatchNorm"
-    bottom: "pool2"
-    top: "bn2"
-    param {
-        lr_mult: 0
-    }
-    param {
-        lr_mult: 0
-    }
-    param {
-        lr_mult: 0
-    }
-}
-layer {
-    name : "sigmoid2"
-    type: "Sigmoid"
-    bottom: "bn2"
-    top: "sigmoid2"
-}
+#layer {
+#    name: "bn2"
+#    type: "BatchNorm"
+#    bottom: "pool2"
+#    top: "bn2"
+#    param {
+#        lr_mult: 0
+#    }
+#    param {
+#        lr_mult: 0
+#    }
+#    param {
+#        lr_mult: 0
+#    }
+#}
+#layer {
+#    name : "sigmoid2"
+#    type: "Sigmoid"
+#    bottom: "bn2"
+#    top: "sigmoid2"
+#}
 layer {
 #    bottom: "pool3"
-#    bottom: "pool2"
-    bottom: "sigmoid2"
+    bottom: "pool2"
+#    bottom: "sigmoid2"
     top: "conv4_1"
     name: "conv4_1" 
     type: "Convolution"
@@ -448,30 +448,30 @@ layer {
         stride: 2
     }
 }
-layer {
-    name: "bn4"
-    type: "BatchNorm"
-    bottom: "pool4"
-    top: "bn4"
-    param {
-        lr_mult: 0
-    }
-    param {
-        lr_mult: 0
-    }
-    param {
-        lr_mult: 0
-    }
-}
-layer {
-    name : "sigmoid4"
-    type: "Sigmoid"
-    bottom: "bn4"
-    top: "sigmoid4"
-}
-layer {
+#layer {
+#    name: "bn4"
+#    type: "BatchNorm"
 #    bottom: "pool4"
-    bottom: "sigmoid4"
+#    top: "bn4"
+#    param {
+#        lr_mult: 0
+#    }
+#    param {
+#        lr_mult: 0
+#    }
+#    param {
+#        lr_mult: 0
+#    }
+#}
+#layer {
+#    name : "sigmoid4"
+#    type: "Sigmoid"
+#    bottom: "bn4"
+#    top: "sigmoid4"
+#}
+layer {
+    bottom: "pool4"
+#    bottom: "sigmoid4"
     top: "conv5_1"
     name: "conv5_1"
     type: "Convolution"
@@ -703,55 +703,56 @@ layer {
     }
 }
 
-layer { 
-    name: "score-pool4"
-    type: "Convolution"
-    param {
-      lr_mult: 1
-      decay_mult: 1
-    }
-    param {
-      lr_mult: 2
-      decay_mult: 0
-    }
-    bottom: "pool4"
-    top: "score-pool4"
-    convolution_param {
-        weight_filler {
-            type: "xavier"
-        }
-        bias_filler {
-            type: "constant"
-            value: 0
-        }
-        num_output: 21
-        kernel_size: 1
-    }
-}
+#layer { 
+#    name: "score-pool4"
+#    type: "Convolution"
+#    param {
+#      lr_mult: 1
+#      decay_mult: 1
+#    }
+#    param {
+#      lr_mult: 2
+#      decay_mult: 0
+#    }
+#    bottom: "pool4"
+#    top: "score-pool4"
+#    convolution_param {
+#        weight_filler {
+#            type: "xavier"
+#        }
+#        bias_filler {
+#            type: "constant"
+#            value: 0
+#        }
+#        num_output: 21
+#        kernel_size: 1
+#    }
+#}
+#
+#layer {
+#    type: "Crop"
+#    name: "crop"
+#    bottom: "score-pool4"
+#    bottom: "score2"
+#    top: "score-pool4c"
+#}
 
-layer {
-    type: "Crop"
-    name: "crop"
-    bottom: "score-pool4"
-    bottom: "score2"
-    top: "score-pool4c"
-}
-
-layer {
-    type: "Eltwise"
-    name: "score-fused"
-    bottom: "score2"
-    bottom: "score-pool4c"
-    top: "score-fused"
-    eltwise_param { 
-        operation: SUM
-    }
-}
+#layer {
+#    type: "Eltwise"
+#    name: "score-fused"
+#    bottom: "score2"
+#    bottom: "score-pool4c"
+#    top: "score-fused"
+#    eltwise_param { 
+#        operation: SUM
+#    }
+#}
 
 layer { 
     type: "Deconvolution"
     name: "score4"
-    bottom: "score-fused"
+#    bottom: "score-fused"
+    bottom: "score2"
     top: "score4"
     convolution_param {
         weight_filler {
@@ -767,56 +768,57 @@ layer {
     }
 }
 
-layer {
-    name: "score-pool3"
-    type: "Convolution"
-    param {
-      lr_mult: 1
-      decay_mult: 1
-    }
-    param {
-      lr_mult: 2
-      decay_mult: 0
-    }
-#    bottom: "pool3"
-    bottom: "pool2"
-    top: "score-pool3"
-    convolution_param { 
-        weight_filler {
-            type: "xavier"
-        }
-        bias_filler {
-            type: "constant"
-            value: 0
-        }
-        num_output: 21
-        kernel_size: 1 
-    }
-}
-
-layer {
-    type: "Crop"
-    name: "crop"
-    bottom: "score-pool3"
-    bottom: "score4"
-    top: "score-pool3c" 
-}
-
-layer { 
-    type: "Eltwise"
-    name: "fuse"
-    bottom: "score4"
-    bottom: "score-pool3c"
-    top: "score-final"
-    eltwise_param {
-        operation: SUM
-    }
-}
+#layer {
+#    name: "score-pool3"
+#    type: "Convolution"
+#    param {
+#      lr_mult: 1
+#      decay_mult: 1
+#    }
+#    param {
+#      lr_mult: 2
+#      decay_mult: 0
+#    }
+##    bottom: "pool3"
+#    bottom: "pool2"
+#    top: "score-pool3"
+#    convolution_param { 
+#        weight_filler {
+#            type: "xavier"
+#        }
+#        bias_filler {
+#            type: "constant"
+#            value: 0
+#        }
+#        num_output: 21
+#        kernel_size: 1 
+#    }
+#}
+#
+#layer {
+#    type: "Crop"
+#    name: "crop"
+#    bottom: "score-pool3"
+#    bottom: "score4"
+#    top: "score-pool3c" 
+#}
+#
+#layer { 
+#    type: "Eltwise"
+#    name: "fuse"
+#    bottom: "score4"
+#    bottom: "score-pool3c"
+#    top: "score-final"
+#    eltwise_param {
+#        operation: SUM
+#    }
+#}
 
 layer { 
     type: "Deconvolution"
     name: "upsample"
-    bottom: "score-final"
+#    bottom: "score-final"
+    bottom: "score4"
     top: "bigscore"
     convolution_param { 
         weight_filler {
@@ -921,18 +923,19 @@ layer {
         num_output: 2
     }
 }
-layer { 
-    bottom: "upconv3" 
-    top: "uprelu3" 
-    name: "uprelu3" 
-    type: "ReLU" 
-}
+#layer { 
+#    bottom: "upconv3" 
+#    top: "uprelu3" 
+#    name: "uprelu3" 
+#    type: "TanH" 
+#}
 
 layer {
     type: "Crop"
     name: "crop"
 #    bottom: "bigscore"
-    bottom: "uprelu3"
+    bottom: "upconv3"
+#    bottom: "uprelu3"
     bottom: "label"
     top: "upscore" 
 }
