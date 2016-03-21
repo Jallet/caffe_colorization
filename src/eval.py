@@ -41,9 +41,6 @@ label = yuv[:, :, 1 : 3]
 label = label.transpose((2, 0, 1))
 net.blobs['label'].data[...] = label
 
-for layer, data in net.blobs.items():
-    print layer + '\t' + str(data.data.shape)
-#item = net.blobs.items()
 net.forward()
 #out = net.blobs['upscore'].data
 #out = net.blobs['upscore'].data
