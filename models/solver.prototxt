@@ -3,13 +3,15 @@ test_iter: 10
 test_interval: 100
 display: 20
 average_loss: 20
-lr_policy: "fixed"
-base_lr: 1e-10
-momentum: 0.99
-iter_size: 1
-max_iter:80000
+base_lr: 1e-5
+lr_policy: "step"
+stepsize: 2000
+gamma: 0.1
+#momentum: 0.9
+#iter_size: 1
 weight_decay: 0.0005
-snapshot: 10000
-snapshot_prefix: "models/train"
+snapshot: 3000
+snapshot_prefix: "/home/jiangliang/code/caffe_colorization/models/colorization"
 test_initialization: false
 solver_mode: GPU
+type: "Nesterov"

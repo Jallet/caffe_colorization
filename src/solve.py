@@ -16,5 +16,5 @@ iters = args.iters
 caffe.set_mode_gpu()
 caffe.set_device(0)
 
-solver = caffe.SGDSolver('/home/jiangliang/code/caffe_colorization/models/solver.prototxt')
+solver = caffe.NesterovSolver('/home/jiangliang/code/caffe_colorization/models/solver.prototxt')
 solver.step(iters)
