@@ -92,41 +92,41 @@ layer {
     name: "relu1_1" 
     type: "ReLU"
 }
-#layer { 
-#    bottom: "conv1_1" 
-#    top: "conv1_2" 
-#    name: "conv1_2"
-#    type: "Convolution"
-#    param {
-#      lr_mult: 1
-#      decay_mult: 1
-#    }
-#    param {
-#      lr_mult: 2
-#      decay_mult: 0
-#    }
-#    convolution_param { 
-#        weight_filler {
-#            type: "xavier"
-#        }
-#        bias_filler {
-#            type: "constant"
-#            value: 0
-#        }
-#        num_output: 64 
-#        pad: 1 
-#        kernel_size: 3 
-#    }
-#}
-#layer { 
-#    bottom: "conv1_2" 
-#    top: "conv1_2" 
-#    name: "relu1_2" 
-#    type: "ReLU" 
-#}
+layer { 
+    bottom: "conv1_1" 
+    top: "conv1_2" 
+    name: "conv1_2"
+    type: "Convolution"
+    param {
+      lr_mult: 1
+      decay_mult: 1
+    }
+    param {
+      lr_mult: 2
+      decay_mult: 0
+    }
+    convolution_param { 
+        weight_filler {
+            type: "xavier"
+        }
+        bias_filler {
+            type: "constant"
+            value: 0
+        }
+        num_output: 64 
+        pad: 1 
+        kernel_size: 3 
+    }
+}
+layer { 
+    bottom: "conv1_2" 
+    top: "conv1_2" 
+    name: "relu1_2" 
+    type: "ReLU" 
+}
 layer { 
     name: "pool1" 
-    bottom: "conv1_1" 
+    bottom: "conv1_2" 
     top: "pool1" 
     type: "Pooling"
     pooling_param { 
@@ -374,38 +374,38 @@ layer {
     name: "relu4_1"
     type: "ReLU"
 }
-#layer {
-#    bottom: "conv4_1"
-#    top: "conv4_2"
-#    name: "conv4_2"
-#    type: "Convolution"
-#    param {
-#      lr_mult: 1
-#      decay_mult: 1
-#    }
-#    param {
-#      lr_mult: 2
-#      decay_mult: 0
-#    }
-#    convolution_param {
-#        weight_filler {
-#            type: "xavier"
-#        }
-#        bias_filler {
-#            type: "constant"
-#            value: 0
-#        }
-#        num_output: 512
-#        pad: 1
-#        kernel_size: 3
-#    }
-#}
-#layer {
-#    bottom: "conv4_2"
-#    top: "conv4_2"
-#    name: "relu4_2"
-#    type: "ReLU"
-#}
+layer {
+    bottom: "conv4_1"
+    top: "conv4_2"
+    name: "conv4_2"
+    type: "Convolution"
+    param {
+      lr_mult: 1
+      decay_mult: 1
+    }
+    param {
+      lr_mult: 2
+      decay_mult: 0
+    }
+    convolution_param {
+        weight_filler {
+            type: "xavier"
+        }
+        bias_filler {
+            type: "constant"
+            value: 0
+        }
+        num_output: 512
+        pad: 1
+        kernel_size: 3
+    }
+}
+layer {
+    bottom: "conv4_2"
+    top: "conv4_2"
+    name: "relu4_2"
+    type: "ReLU"
+}
 #layer {
 #    bottom: "conv4_2"
 #    top: "conv4_3"
@@ -691,7 +691,8 @@ layer {
     name: "score2"
 #    bottom: "score"
 #    bottom: "conv2_1"
-    bottom: "conv4_1"
+#    bottom: "conv4_1"
+    bottom: "conv4_2"
     top: "score2"
     convolution_param {
         weight_filler {
