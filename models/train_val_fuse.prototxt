@@ -12,7 +12,7 @@ transform_param {
   }
   data_param {
     source: "/home/jiangliang/code/caffe_colorization/data/flowers/train_y.lmdb"
-    batch_size: 64
+    batch_size: 32
     backend: LMDB
   }
 }
@@ -25,7 +25,7 @@ layer {
   }
   data_param {
     source: "/home/jiangliang/code/caffe_colorization/data/flowers/train_uv.lmdb"
-    batch_size: 64
+    batch_size: 32
     backend: LMDB
   }
 }
@@ -704,7 +704,7 @@ layer {
         }
         kernel_size: 4
         stride: 4
-        num_output: 2
+        num_output: 64
     }
 }
 #
@@ -947,9 +947,48 @@ layer {
 }
 
 layer {
+    type : "Concat"
+    name : "concat"
+    bottom : "upscore"
+    bottom : "data"
+    top : "concat"
+}
+
+layer {
+    type : "Convolution"
+    name : "color-conv"
+    bottom : "concat"
+    top : "color-conv"
+    param {
+      lr_mult: 1
+      decay_mult: 1
+    }
+    param {
+      lr_mult: 2
+      decay_mult: 0
+    }
+    convolution_param { 
+        weight_filler {
+            type: "xavier"
+        }
+        bias_filler {
+            type: "constant"
+            value: 0
+        }
+#        num_output: 64 
+        num_output: 2
+        pad: 1
+        kernel_size: 3
+    }
+
+}
+
+layer {
   type: "EuclideanLoss"
   name: "loss" 
-  bottom: "upscore"
+#  bottom: "upscore"
+#  bottom: "concat"
+  bottom: "color-conv"
 #  bottom: "conv1_1"
   bottom: "label"
   top: "loss"
