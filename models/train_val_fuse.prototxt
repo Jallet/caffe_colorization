@@ -137,31 +137,31 @@ layer {
         stride: 2 
     }
 }
-#layer {
-#    name: "bn1"
-#    type: "BatchNorm"
-#    bottom: "pool1"
-#    top: "bn1"
-#    param {
-#        lr_mult: 0
-#    }
-#    param {
-#        lr_mult: 0
-#    }
-#    param {
-#        lr_mult: 0
-#    }
-#}
-#layer {
-#    name : "sigmoid1"
-#    type: "Sigmoid"
-#    bottom: "bn1"
-#    top: "sigmoid1"
-#}
+layer {
+    name: "bn1"
+    type: "BatchNorm"
+    bottom: "pool1"
+    top: "bn1"
+    param {
+        lr_mult: 0
+    }
+    param {
+        lr_mult: 0
+    }
+    param {
+        lr_mult: 0
+    }
+}
+layer {
+    name : "sigmoid1"
+    type: "Sigmoid"
+    bottom: "bn1"
+    top: "sigmoid1"
+}
 layer { 
     name: "conv2_1" 
-    bottom: "pool1" 
-#    bottom: "sigmoid1"
+#    bottom: "pool1" 
+    bottom: "sigmoid1"
     top: "conv2_1" 
     type: "Convolution"
     param {
@@ -323,31 +323,31 @@ layer {
 #        stride: 2 
 #    }
 #}
-#layer {
-#    name: "bn2"
-#    type: "BatchNorm"
-#    bottom: "pool2"
-#    top: "bn2"
-#    param {
-#        lr_mult: 0
-#    }
-#    param {
-#        lr_mult: 0
-#    }
-#    param {
-#        lr_mult: 0
-#    }
-#}
-#layer {
-#    name : "sigmoid2"
-#    type: "Sigmoid"
-#    bottom: "bn2"
-#    top: "sigmoid2"
-#}
+layer {
+    name: "bn2"
+    type: "BatchNorm"
+    bottom: "pool2"
+    top: "bn2"
+    param {
+        lr_mult: 0
+    }
+    param {
+        lr_mult: 0
+    }
+    param {
+        lr_mult: 0
+    }
+}
+layer {
+    name : "sigmoid2"
+    type: "Sigmoid"
+    bottom: "bn2"
+    top: "sigmoid2"
+}
 layer {
 #    bottom: "pool3"
-    bottom: "pool2"
-#    bottom: "sigmoid2"
+#    bottom: "pool2"
+    bottom: "sigmoid2"
     top: "conv4_1"
     name: "conv4_1" 
     type: "Convolution"
@@ -446,7 +446,8 @@ layer {
 #}
 #layer {
 ##    bottom: "conv4_3"
-#    bottom: "conv4_1"
+##    bottom: "conv4_1"
+#    bottom: "conv4_2"
 #    top: "pool4"
 #    name: "pool4"
 #    type: "Pooling"
@@ -456,27 +457,27 @@ layer {
 #        stride: 2
 #    }
 #}
-#layer {
-#    name: "bn4"
-#    type: "BatchNorm"
-#    bottom: "pool4"
-#    top: "bn4"
-#    param {
-#        lr_mult: 0
-#    }
-#    param {
-#        lr_mult: 0
-#    }
-#    param {
-#        lr_mult: 0
-#    }
-#}
-#layer {
-#    name : "sigmoid4"
-#    type: "Sigmoid"
-#    bottom: "bn4"
-#    top: "sigmoid4"
-#}
+layer {
+    name: "bn4"
+    type: "BatchNorm"
+    bottom: "conv4_2"
+    top: "bn4"
+    param {
+        lr_mult: 0
+    }
+    param {
+        lr_mult: 0
+    }
+    param {
+        lr_mult: 0
+    }
+}
+layer {
+    name : "sigmoid4"
+    type: "Sigmoid"
+    bottom: "bn4"
+    top: "sigmoid4"
+}
 #layer {
 #    bottom: "pool4"
 ##    bottom: "sigmoid4"
@@ -698,7 +699,8 @@ layer {
 #    bottom: "score"
 #    bottom: "conv2_1"
 #    bottom: "conv4_1"
-    bottom: "conv4_2"
+#    bottom: "conv4_2"
+    bottom: "sigmoid4"
     top: "score2"
     convolution_param {
         weight_filler {
