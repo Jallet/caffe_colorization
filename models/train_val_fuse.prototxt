@@ -74,7 +74,8 @@ layer {
     }
     convolution_param { 
         weight_filler {
-            type: "xavier"
+            type : "gaussian"
+            std: 0.01
         }
         bias_filler {
             type: "constant"
@@ -107,7 +108,8 @@ layer {
     }
     convolution_param { 
         weight_filler {
-            type: "xavier"
+            type : "gaussian"
+            std: 0.01
         }
         bias_filler {
             type: "constant"
@@ -172,7 +174,8 @@ layer {
     }
     convolution_param {
         weight_filler {
-            type: "xavier"
+            type : "gaussian"
+            std: 0.01
         }
         bias_filler {
             type: "constant"
@@ -204,7 +207,8 @@ layer {
     }
     convolution_param {
         weight_filler {
-            type: "xavier"
+            type : "gaussian"
+            std: 0.01
         }
         bias_filler {
             type: "constant"
@@ -357,7 +361,8 @@ layer {
     }
     convolution_param { 
         weight_filler {
-            type: "xavier"
+            type : "gaussian"
+            std: 0.01
         }
         bias_filler {
             type: "constant"
@@ -389,7 +394,8 @@ layer {
     }
     convolution_param {
         weight_filler {
-            type: "xavier"
+            type : "gaussian"
+            std: 0.01
         }
         bias_filler {
             type: "constant"
@@ -421,7 +427,7 @@ layer {
 #    }
 #    convolution_param {
 #        weight_filler {
-#            type: "xavier"
+#            type : "gaussian"
 #        }
 #        bias_filler {
 #            type: "constant"
@@ -487,7 +493,7 @@ layer {
 #    }
 #    convolution_param {
 #        weight_filler {
-#            type: "xavier"
+#            type : "gaussian"
 #        }
 #        bias_filler {
 #            type: "constant"
@@ -519,7 +525,7 @@ layer {
 ##    }
 ##    convolution_param {
 ##        weight_filler {
-##            type: "xavier"
+##            type : "gaussian"
 ##        }
 ##        bias_filler {
 ##            type: "constant"
@@ -551,7 +557,7 @@ layer {
 ##    }
 ##    convolution_param { 
 ##        weight_filler {
-##            type: "xavier"
+##            type : "gaussian"
 ##        }
 ##        bias_filler {
 ##            type: "constant"
@@ -595,7 +601,7 @@ layer {
 #    }
 #    convolution_param {
 #        weight_filler {
-#            type: "xavier"
+#            type : "gaussian"
 #        }
 #        bias_filler {
 #            type: "constant"
@@ -635,7 +641,7 @@ layer {
 #    }
 #    convolution_param {
 #        weight_filler {
-#            type: "xavier"
+#            type : "gaussian"
 #        }
 #        bias_filler {
 #            type: "constant"
@@ -675,7 +681,7 @@ layer {
 #    top: "score"
 #    convolution_param {
 #        weight_filler {
-#            type: "xavier"
+#            type : "gaussian"
 #        }
 #        bias_filler {
 #            type: "constant"
@@ -696,7 +702,8 @@ layer {
     top: "score2"
     convolution_param {
         weight_filler {
-            type: "xavier"
+            type : "gaussian"
+            std: 0.01
         }
         bias_filler {
             type: "constant"
@@ -723,7 +730,7 @@ layer {
 ##    top: "score-pool4"
 ##    convolution_param {
 ##        weight_filler {
-##            type: "xavier"
+##            type : "gaussian"
 ##        }
 ##        bias_filler {
 ##            type: "constant"
@@ -761,7 +768,7 @@ layer {
 #    top: "score4"
 #    convolution_param {
 #        weight_filler {
-#            type: "xavier"
+#            type : "gaussian"
 #        }
 #        bias_filler {
 #            type: "constant"
@@ -789,7 +796,7 @@ layer {
 ##    top: "score-pool3"
 ##    convolution_param { 
 ##        weight_filler {
-##            type: "xavier"
+##            type : "gaussian"
 ##        }
 ##        bias_filler {
 ##            type: "constant"
@@ -827,7 +834,7 @@ layer {
 #    top: "bigscore"
 #    convolution_param { 
 #        weight_filler {
-#            type: "xavier"
+#            type : "gaussian"
 #        }
 #        bias_filler {
 #            type: "constant"
@@ -854,7 +861,7 @@ layer {
 #    top: "upconv1"
 #    convolution_param {
 #        weight_filler {
-#            type: "xavier"
+#            type : "gaussian"
 #        }
 #        bias_filler {
 #            type: "constant"
@@ -886,7 +893,7 @@ layer {
 #    top: "upconv2"
 #    convolution_param {
 #        weight_filler {
-#            type: "xavier"
+#            type : "gaussian"
 #        }
 #        bias_filler {
 #            type: "constant"
@@ -918,7 +925,7 @@ layer {
 #    top: "upconv3"
 #    convolution_param {
 #        weight_filler {
-#            type: "xavier"
+#            type : "gaussian"
 #        }
 #        bias_filler {
 #            type: "constant"
@@ -969,7 +976,8 @@ layer {
     }
     convolution_param { 
         weight_filler {
-            type: "xavier"
+            type : "gaussian"
+            std: 0.01
         }
         bias_filler {
             type: "constant"

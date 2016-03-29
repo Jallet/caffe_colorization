@@ -56,7 +56,9 @@ out_rgb = yuv2rgb(out_yuv)
 or_rgb = yuv2rgb(yuv)
 
 out_im = Image.fromarray(out_rgb)
+gray_im = out_im.convert('L')
 or_im = Image.fromarray(or_rgb)
 
 or_im.show()
+gray_im.show()
 out_im.show()
