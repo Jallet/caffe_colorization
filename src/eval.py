@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import sys
-caffe_root = '/usr/local/caffe/'
+caffe_root = '/home/jiangliang/code/caffe/'
 project_root = '/home/jiangliang/code/caffe_colorization/'
 sys.path.insert(0, caffe_root + 'python')
 import caffe

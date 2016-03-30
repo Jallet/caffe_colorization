@@ -712,8 +712,17 @@ layer {
             value: 0
         }
         kernel_size: 4
-        stride: 4
+        stride: 6
         num_output: 64
+    }
+}
+layer {
+    name : "dropout"
+    type : "Dropout"
+    bottom : "score2"
+    top : "score2"
+    dropout_param {
+        dropout_ratio : 0.75
     }
 }
 #
@@ -994,7 +1003,7 @@ layer {
 }
 
 layer {
-  type: "EuclideanLoss"
+  type: "EuclideanLossWithTV"
   name: "loss" 
 #  bottom: "upscore"
 #  bottom: "concat"
@@ -1002,4 +1011,7 @@ layer {
 #  bottom: "conv1_1"
   bottom: "label"
   top: "loss"
+  euclidean_with_tv_param {
+    lambda : 0.1
+  }
 }

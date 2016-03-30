@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import sys
 import argparse
-caffe_root = '/usr/local/caffe/'
+caffe_root = '/home/jiangliang/code/caffe/'
 sys.path.insert(0, caffe_root + 'python')
 import caffe
 import numpy as np
