@@ -3,9 +3,12 @@ test_iter: 10
 test_interval: 100
 display: 20
 average_loss: 20
-base_lr: 1e-6
-lr_policy: "step"
-stepsize: 3000
+base_lr: 1e-9
+lr_policy: "multistep"
+stepvalue: 3000
+stepvalue: 8000
+stepvalue: 13000
+stepvalue: 18000
 gamma: 0.1
 momentum: 0.95
 #iter_size: 1

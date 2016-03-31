@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-caffe_root = '/usr/local/caffe/'
+caffe_root = '/home/jiangliang/code/caffe/'
 import sys
 sys.path.insert(0, caffe_root + 'python')
 import caffe
